@@ -1,0 +1,429 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Dullgrass的博客">
+    <title>UITableView常见问题（一） - Dullgrass的博客</title>
+    <meta name="author" content="Dullgrass的博客">
+    
+    
+    <meta name="description" content="iOS 7 中UITableView顶部64像素空白区域的问题:问题展示如下图所示: 
+产生原因分析:iOS7中 UIViewController新增属性Adjust Scroll View Insets，即是否根据所在界面的UINavigationBar与UITabbar的高度，自动调整UIScroll View的Inset，它的意义在于，让开发者全屏幕布局，这样可以充分利用导航栏的毛玻璃效果。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="UITableView常见问题（一）">
+<meta property="og:url" content="https://github.com/dullgrass/2015/09/29/tableView/index.html">
+<meta property="og:site_name" content="Dullgrass的博客">
+<meta property="og:description" content="iOS 7 中UITableView顶部64像素空白区域的问题:问题展示如下图所示: 
+产生原因分析:iOS7中 UIViewController新增属性Adjust Scroll View Insets，即是否根据所在界面的UINavigationBar与UITabbar的高度，自动调整UIScroll View的Inset，它的意义在于，让开发者全屏幕布局，这样可以充分利用导航栏的毛玻璃效果。">
+<meta property="og:image" content="http://7pn65g.com1.z0.glb.clouddn.com/quesion.png">
+<meta property="og:image" content="http://7pn65g.com1.z0.glb.clouddn.com/no64Pix.gif">
+<meta property="og:image" content="http://7pn65g.com1.z0.glb.clouddn.com/64Pix.gif">
+<meta property="og:image" content="http://7pn65g.com1.z0.glb.clouddn.com/AutoCell.gif">
+<meta property="og:updated_time" content="2015-09-29T04:28:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UITableView常见问题（一）">
+<meta name="twitter:description" content="iOS 7 中UITableView顶部64像素空白区域的问题:问题展示如下图所示: 
+产生原因分析:iOS7中 UIViewController新增属性Adjust Scroll View Insets，即是否根据所在界面的UINavigationBar与UITabbar的高度，自动调整UIScroll View的Inset，它的意义在于，让开发者全屏幕布局，这样可以充分利用导航栏的毛玻璃效果。">
+    
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="1">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">Dullgrass的博客</a>
+    </h1>
+    
+</header>
+            <nav id="sidebar" data-behavior="1">
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">Home</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">Categories</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">Tags</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">Archive</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">Search</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">About</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="https://github.com/dullgrass"
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="1"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            UITableView常见问题（一）
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Tue Sep 29 2015 00:00:00 GMT+0800">
+	
+		    Sep 29, 2015
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/UITableView常见问题集锦/">UITableView常见问题集锦</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h3 id="iOS_7_中UITableView顶部64像素空白区域的问题:">iOS 7 中UITableView顶部64像素空白区域的问题:</h3><h4 id="问题展示如下图所示:">问题展示如下图所示:</h4><p> <img src="http://7pn65g.com1.z0.glb.clouddn.com/quesion.png" alt="quesiotn"></p>
+<h4 id="产生原因分析:">产生原因分析:</h4><p>iOS7中 UIViewController新增属性Adjust Scroll View Insets，即是否根据所在界面的UINavigationBar与UITabbar的高度，自动调整UIScroll View的Inset，它的意义在于，让开发者全屏幕布局，这样可以充分利用导航栏的毛玻璃效果。</p>
+<h4 id="解决方案:">解决方案:</h4><ul>
+<li><p>屏蔽Adjust Scroll View Insets属性，则UITableView顶部的64像素的空白区域消失，操作如下:</p>
+<p><img src="http://7pn65g.com1.z0.glb.clouddn.com/no64Pix.gif" alt="no64Pix"></p>
+</li>
+<li><p>保留Adjust Scroll View Insets属性，将UITableView的Top Layout Guide约束设置成 -64像素，产生UINavigationBar的毛玻璃效果，操作如下:</p>
+<p><img src="http://7pn65g.com1.z0.glb.clouddn.com/64Pix.gif" alt="64Pix"></p>
+</li>
+</ul>
+<hr>
+<h3 id="UITableViewCell自适应cell内部控件的高度">UITableViewCell自适应cell内部控件的高度</h3><h4 id="iOS8以前的解决方案如下：">iOS8以前的解决方案如下：</h4><hr>
+<p>在UITableViewCell出现之前，手动计算cell内部会发生变化的控件的高度,如果有多个高度会变化的控件, 那么你就需要计算多次…再统一相加起来,返回给cell的高度，计算cell高度的操作，在主线程进行，会导致性能问题。<br>iOS7增加新的代理方法estimatedHeightForRowAtIndexPath，在这个代理方法里面计算cell的高度，解决了首次加载tableviewcell出现的性能问题(主线程大量计算cell高度，会造成性能问题)</p>
+<h4 id="iOS8以后的解决方案如下：">iOS8以后的解决方案如下：</h4><hr>
+<p>在iOS8中,苹果引入了UITableView的一项新功能—Self Sizing Cells，该功能为展示动态内容提供了一种解决方案，使用步骤如下:</p>
+<ul>
+<li>为自定义的UITableViewCell中的控件指定Auto Layout约束（可使用代码添加约束或者StoryBoard或者XIB添加约束</li>
+<li>按如下代码设置UITableView</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ _tableView.estimatedRowHeight = <span class="number">160</span>;</span><br><span class="line">$ _tableView.rowHeight = UITableViewAutomaticDimension;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>具体操作步骤如下:</p>
+<p><img src="http://7pn65g.com1.z0.glb.clouddn.com/AutoCell.gif" alt="autoCell"></p>
+</li>
+</ul>
+<hr>
+<h4 id="代码下载">代码下载</h4><p><a href="https://codeload.github.com/dullgrass/AutoResizeTableViewCell/zip/master" target="_blank" rel="external">StoryBoard方式自适应cell代码下载</a><br><a href="https://codeload.github.com/jszumski/auto-layout-table-cells/zip/master" target="_blank" rel="external">代码方式自适应cell代码下载</a></p>
+<hr>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Self-Sizing-Cells/">Self Sizing Cells</a> <a class="tag tag--primary tag--small t-link" href="/tags/UITableView-自适应cell/">UITableView 自适应cell</a> <a class="tag tag--primary tag--small t-link" href="/tags/UITableView顶部64像素空白区域/">UITableView顶部64像素空白区域</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/09/25/hello-world/" data-tooltip="Hello World">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://github.com/dullgrass/2015/09/29/tableView/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/dullgrass/2015/09/29/tableView/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://github.com/dullgrass/2015/09/29/tableView/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2015 Dullgrass的博客. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/09/25/hello-world/" data-tooltip="Hello World">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://github.com/dullgrass/2015/09/29/tableView/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/dullgrass/2015/09/29/tableView/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://github.com/dullgrass/2015/09/29/tableView/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="1">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://github.com/dullgrass/2015/09/29/tableView/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/dullgrass/2015/09/29/tableView/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://github.com/dullgrass/2015/09/29/tableView/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <h4 id="about-card-name">Dullgrass的博客</h4>
+        
+            <h5 id="about-card-bio"><p>author.bio</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://res.cloudinary.com/tranquilpeak-hexo-theme/image/upload/v1438975482/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
