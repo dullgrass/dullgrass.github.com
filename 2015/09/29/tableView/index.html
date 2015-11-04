@@ -1,18 +1,13 @@
-
 <!DOCTYPE html>
-<html lang="en">
-    
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Dullgrass&#39;s Blog">
-    <title>UITableView常见问题（一） - Dullgrass&#39;s Blog</title>
-    <meta name="author" content="Dullgrass">
-    
-    
-    <meta name="description" content="iOS 7 中UITableView顶部64像素空白区域的问题:问题展示如下图所示: 
+  <meta charset="utf-8">
+  
+  <title>UITableView常见问题（一） | Dullgrass&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="iOS 7 中UITableView顶部64像素空白区域的问题:问题展示如下图所示: 
 产生原因分析:iOS7中 UIViewController新增属性Adjust Scroll View Insets，即是否根据所在界面的UINavigationBar与UITabbar的高度，自动调整UIScroll View的Inset，它的意义在于，让开发者全屏幕布局，这样可以充分利用导航栏的毛玻璃效果。">
-<meta property="og:type" content="blog">
+<meta property="og:type" content="article">
 <meta property="og:title" content="UITableView常见问题（一）">
 <meta property="og:url" content="https://github.com/dullgrass/2015/09/29/tableView/index.html">
 <meta property="og:site_name" content="Dullgrass's Blog">
@@ -22,178 +17,219 @@
 <meta property="og:image" content="http://7pn65g.com1.z0.glb.clouddn.com/no64Pix.gif">
 <meta property="og:image" content="http://7pn65g.com1.z0.glb.clouddn.com/64Pix.gif">
 <meta property="og:image" content="http://7pn65g.com1.z0.glb.clouddn.com/AutoCell.gif">
-<meta property="og:updated_time" content="2015-09-29T04:28:17.000Z">
+<meta property="og:updated_time" content="2015-11-01T06:37:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UITableView常见问题（一）">
 <meta name="twitter:description" content="iOS 7 中UITableView顶部64像素空白区域的问题:问题展示如下图所示: 
 产生原因分析:iOS7中 UIViewController新增属性Adjust Scroll View Insets，即是否根据所在界面的UINavigationBar与UITabbar的高度，自动调整UIScroll View的Inset，它的意义在于，让开发者全屏幕布局，这样可以充分利用导航栏的毛玻璃效果。">
-    
-    
-    
-    
-    
-    
-    <!--STYLES-->
-    <link rel="stylesheet" href="/assets/css/style.min.css" type="text/css">
-    <!--STYLES END-->
-    
+  
+    <link rel="alternative" href="/atom.xml" title="Dullgrass&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7pn65g.com1.z0.glb.clouddn.com/myLogo.png" class="js-avatar">
+			
+		</a>
 
-    <body>
-        <div id="blog">
-            <header id="header" data-behavior="1">
-    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
-    <h1 class="header-title">
-        <a class="header-title-link" href="/ ">Dullgrass&#39;s Blog</a>
-    </h1>
-    
-</header>
-            <nav id="sidebar" data-behavior="1">
-    
-    
-        <ul class="sidebar-buttons">
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link "
-                         href="/ "
-                        
-                    >
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
-                    <span class="sidebar-button-desc">Home</span>
-                </a>
-        </li>
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link "
-                         href="/all-categories"
-                        
-                    >
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
-                    <span class="sidebar-button-desc">Categories</span>
-                </a>
-        </li>
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link "
-                         href="/all-tags"
-                        
-                    >
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
-                    <span class="sidebar-button-desc">Tags</span>
-                </a>
-        </li>
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link "
-                         href="/all-archives"
-                        
-                    >
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
-                    <span class="sidebar-button-desc">Archive</span>
-                </a>
-        </li>
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link st-search-show-outputs"
-                         href="/#search"
-                        
-                    >
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
-                    <span class="sidebar-button-desc">Search</span>
-                </a>
-        </li>
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link "
-                         href="/#about"
-                        
-                    >
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
-                    <span class="sidebar-button-desc">About</span>
-                </a>
-        </li>
-        
-    </ul>
-    
-        <ul class="sidebar-buttons">
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link "
-                         href="https://github.com/dullgrass"
-                    >
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
-                    <span class="sidebar-button-desc">GitHub</span>
-                </a>
-        </li>
-        
-    </ul>
-    
-        <ul class="sidebar-buttons">
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link "
-                         href="/atom.xml"
-                        
-                    >
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
-                    <span class="sidebar-button-desc">RSS</span>
-                </a>
-        </li>
-        
-    </ul>
-    
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Dullgrass</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/dullgrass" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:dullgrass@gmail.com" title="mail">mail</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/dullgrass" title="twitter">twitter</a>
+					        
+								<a class="linkedin" target="_blank" href="https://cn.linkedin.com/pub/cuiping-wu/b5/b75/7b4" title="linkedin">linkedin</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Self-Sizing-Cells/" style="font-size: 10px;">Self Sizing Cells</a> <a href="/tags/UITableView-自适应cell/" style="font-size: 10px;">UITableView 自适应cell</a> <a href="/tags/UITableView顶部64像素空白区域/" style="font-size: 10px;">UITableView顶部64像素空白区域</a> <a href="/tags/block/" style="font-size: 10px;">block</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jiwanqiang.com">季万强的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Senior iOS developer，worked in ChinaSoft International</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Dullgrass</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://7pn65g.com1.z0.glb.clouddn.com/myLogo.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Dullgrass</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/dullgrass" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:dullgrass@gmail.com" title="mail">mail</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/dullgrass" title="twitter">twitter</a>
+			        
+						<a class="linkedin" target="_blank" href="https://cn.linkedin.com/pub/cuiping-wu/b5/b75/7b4" title="linkedin">linkedin</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
 </nav>
-
-            
-            <div id="main" data-behavior="1"
-                 class="
-                        hasCoverMetaIn
-                        ">
-                
-<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+      <div class="body-wrap"><article id="post-tableView" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/09/29/tableView/" class="article-date">
+  	<time datetime="2015-09-28T16:00:00.000Z" itemprop="datePublished">2015-09-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
-        <div class="post-header main-content-wrap text-left">
-    
-        <h1 class="post-title" itemprop="headline">
-            UITableView常见问题（一）
-        </h1>
-    
-    <div class="post-meta">
-    <time itemprop="datePublished" content="Tue Sep 29 2015 00:00:00 GMT+0800">
-	
-		    Sep 29, 2015
-    	
-    </time>
-    
-        <span>in </span>
+      <header class="article-header">
         
-    <a class="category-link" href="/categories/UITableView常见问题集锦/">UITableView常见问题集锦</a>
+  
+    <h1 class="article-title" itemprop="name">
+      UITableView常见问题（一）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Self-Sizing-Cells/">Self Sizing Cells</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITableView-自适应cell/">UITableView 自适应cell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITableView顶部64像素空白区域/">UITableView顶部64像素空白区域</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/UITableView/">UITableView</a>
+	</div>
 
 
+        <div class="clearfix"></div>
+      </div>
+      
     
-</div>
-</div>
-    
-    <div class="post-content markdown" itemprop="articleBody">
-        <div class="main-content-wrap">
-            <h3 id="iOS_7_中UITableView顶部64像素空白区域的问题:">iOS 7 中UITableView顶部64像素空白区域的问题:</h3><h4 id="问题展示如下图所示:">问题展示如下图所示:</h4><p> <img src="http://7pn65g.com1.z0.glb.clouddn.com/quesion.png" alt="quesiotn"></p>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="iOS_7_中UITableView顶部64像素空白区域的问题:">iOS 7 中UITableView顶部64像素空白区域的问题:</h3><h4 id="问题展示如下图所示:">问题展示如下图所示:</h4><p> <img src="http://7pn65g.com1.z0.glb.clouddn.com/quesion.png" alt="quesiotn"></p>
 <h4 id="产生原因分析:">产生原因分析:</h4><p>iOS7中 UIViewController新增属性Adjust Scroll View Insets，即是否根据所在界面的UINavigationBar与UITabbar的高度，自动调整UIScroll View的Inset，它的意义在于，让开发者全屏幕布局，这样可以充分利用导航栏的毛玻璃效果。</p>
 <h4 id="解决方案:">解决方案:</h4><ul>
 <li><p>屏蔽Adjust Scroll View Insets属性，则UITableView顶部的64像素的空白区域消失，操作如下:</p>
@@ -222,223 +258,125 @@
 <h4 id="代码下载">代码下载</h4><p><a href="https://codeload.github.com/dullgrass/AutoResizeTableViewCell/zip/master" target="_blank" rel="external">StoryBoard方式自适应cell代码下载</a><br><a href="https://codeload.github.com/jszumski/auto-layout-table-cells/zip/master" target="_blank" rel="external">代码方式自适应cell代码下载</a></p>
 <hr>
 
-            
-                
-
-            
-        </div>
+      
     </div>
-    <div class="post-footer main-content-wrap">
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/30/block1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
         
-            <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
-                
-    <a class="tag tag--primary tag--small t-link" href="/tags/Self-Sizing-Cells/">Self Sizing Cells</a> <a class="tag tag--primary tag--small t-link" href="/tags/UITableView-自适应cell/">UITableView 自适应cell</a> <a class="tag tag--primary tag--small t-link" href="/tags/UITableView顶部64像素空白区域/">UITableView顶部64像素空白区域</a>
+          白话block
+        
+      </div>
+    </a>
+  
+  
+</nav>
 
-            </div>
-        
-        <div class="post-actions-wrap">
-    <nav>
-        <ul class="post-actions post-action-nav">
-            <li class="post-action">
-                
-                    <a class="post-action-btn btn btn--disabled">
-                
-                    <i class="fa fa-angle-left"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
-                </a>
-            </li>
-            <li class="post-action">
-                
-                    <a class="post-action-btn btn btn--disabled">
-                
-                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
-                <i class="fa fa-share-alt"></i>
-            </a>
-        </li>
-        <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://github.com/dullgrass/2015/09/29/tableView/">
-                <i class="fa fa-google-plus"></i>
-            </a>
-        </li>
-        <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/dullgrass/2015/09/29/tableView/">
-                <i class="fa fa-facebook-official"></i>
-            </a>
-        </li>
-        <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://github.com/dullgrass/2015/09/29/tableView/">
-                <i class="fa fa-twitter"></i>
-            </a>
-        </li>
-        
-            <li class="post-action">
-                <a class="post-action-btn btn btn--default" href="#disqus_thread">
-                    <i class="fa fa-comment-o"></i>
-                </a>
-            </li>
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#">
-            
-                <i class="fa fa-list"></i>
-            </a>
-        </li>
-    </ul>
-</div>
-
-
-        
-            <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-        
-    </div>
+  
 </article>
 
 
-
-                <footer id="footer" class="main-content-wrap">
-    <span class="copyrights">
-        Copyrights &copy; 2015 Dullgrass. All Rights Reserved.
-    </span>
-</footer>
-
-            </div>
-            
-                <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
-                    <div class="post-actions-wrap">
-    <nav>
-        <ul class="post-actions post-action-nav">
-            <li class="post-action">
-                
-                    <a class="post-action-btn btn btn--disabled">
-                
-                    <i class="fa fa-angle-left"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
-                </a>
-            </li>
-            <li class="post-action">
-                
-                    <a class="post-action-btn btn btn--disabled">
-                
-                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
-                <i class="fa fa-share-alt"></i>
-            </a>
-        </li>
-        <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://github.com/dullgrass/2015/09/29/tableView/">
-                <i class="fa fa-google-plus"></i>
-            </a>
-        </li>
-        <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/dullgrass/2015/09/29/tableView/">
-                <i class="fa fa-facebook-official"></i>
-            </a>
-        </li>
-        <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://github.com/dullgrass/2015/09/29/tableView/">
-                <i class="fa fa-twitter"></i>
-            </a>
-        </li>
-        
-            <li class="post-action">
-                <a class="post-action-btn btn btn--default" href="#disqus_thread">
-                    <i class="fa fa-comment-o"></i>
-                </a>
-            </li>
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#">
-            
-                <i class="fa fa-list"></i>
-            </a>
-        </li>
-    </ul>
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
 </div>
 
 
-                </div>
-                <div id="share-options-bar" class="share-options-bar" data-behavior="1">
-    <ul class="share-options">
-        <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://github.com/dullgrass/2015/09/29/tableView/">
-                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
-            </a>
-        </li>
-        <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/dullgrass/2015/09/29/tableView/">
-                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
-            </a>
-        </li>
-        <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://github.com/dullgrass/2015/09/29/tableView/">
-                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
-            </a>
-        </li>
-    </ul>
-</div>
-<div id="share-options-mask" class="share-options-mask"></div>
-            
-        </div>
-        <div id="about">
-    <div id="about-card">
-        <div id="about-btn-close">
-            <i class="fa fa-remove"></i>
-        </div>
-        
-            <h4 id="about-card-name">Dullgrass</h4>
-        
-            <h5 id="about-card-bio"><p>author.bio</p>
-</h5>
-        
-        
-            <h5 id="about-card-job">
-                <i class="fa fa-briefcase"></i>
-                <br/>
-                <p>author.job</p>
 
-            </h5>
-        
-        
-    </div>
-</div>
 
-        <div id="cover" style="background-image:url('http://res.cloudinary.com/tranquilpeak-hexo-theme/image/upload/v1438975482/v1.3.0-cover.jpg');"></div>
-    </body>
-    <!--SCRIPTS-->
-<script src="/assets/js/script.min.js" type="text/javascript"></script>
-<!--SCRIPTS END-->
 
+<section id="comments">
+  <div id="disqus_thread"></div>
     <script type="text/javascript">
-        var disqus_shortname = 'dullgrass';
-        (function() {
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'dullgrass'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Dullgrass
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
 
 
 
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
 </html>
