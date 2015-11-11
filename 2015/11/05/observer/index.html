@@ -3,17 +3,45 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Dullgrass&#39;s Blog</title>
+  <title>细说KVO &amp; KVC &amp; NSNotificationCenter那些事 | Dullgrass&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="always on the way">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Dullgrass's Blog">
-<meta property="og:url" content="https://github.com/dullgrass/index.html">
+  <meta name="description" content="在iOS开发过程中，我们经常会听到或者用到KVO，KVC，NSNotificationCenter等，但是很多时候，我们可能没有那么了解，下面让我们来详细了解下他们的概念、用法以及他们之间的关系吧～
+
+本篇博客共分以下几个模块来介绍:
+
+什么是KVC?
+什么是KVO？
+KVC与KVO的关系
+KVC Collection Operators
+什么是NSNotificationCenter？
+NSNo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="细说KVO & KVC & NSNotificationCenter那些事">
+<meta property="og:url" content="https://github.com/dullgrass/2015/11/05/observer/index.html">
 <meta property="og:site_name" content="Dullgrass's Blog">
-<meta property="og:description" content="always on the way">
+<meta property="og:description" content="在iOS开发过程中，我们经常会听到或者用到KVO，KVC，NSNotificationCenter等，但是很多时候，我们可能没有那么了解，下面让我们来详细了解下他们的概念、用法以及他们之间的关系吧～
+
+本篇博客共分以下几个模块来介绍:
+
+什么是KVC?
+什么是KVO？
+KVC与KVO的关系
+KVC Collection Operators
+什么是NSNotificationCenter？
+NSNo">
+<meta property="og:updated_time" content="2015-11-11T02:57:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dullgrass's Blog">
-<meta name="twitter:description" content="always on the way">
+<meta name="twitter:title" content="细说KVO & KVC & NSNotificationCenter那些事">
+<meta name="twitter:description" content="在iOS开发过程中，我们经常会听到或者用到KVO，KVC，NSNotificationCenter等，但是很多时候，我们可能没有那么了解，下面让我们来详细了解下他们的概念、用法以及他们之间的关系吧～
+
+本篇博客共分以下几个模块来介绍:
+
+什么是KVC?
+什么是KVO？
+KVC与KVO的关系
+KVC Collection Operators
+什么是NSNotificationCenter？
+NSNo">
   
     <link rel="alternative" href="/atom.xml" title="Dullgrass&#39;s Blog" type="application/atom+xml">
   
@@ -180,9 +208,7 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-observer" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-observer" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2015/11/05/observer/" class="article-date">
@@ -198,12 +224,27 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/05/observer/">细说KVO &amp; KVC &amp; NSNotificationCenter那些事</a>
+    <h1 class="article-title" itemprop="name">
+      细说KVO &amp; KVC &amp; NSNotificationCenter那些事
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KVC/">KVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KVO/">KVO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NSNotificationCenter/">NSNotificationCenter</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/观察者模式/">观察者模式</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -384,305 +425,58 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KVC/">KVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KVO/">KVO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NSNotificationCenter/">NSNotificationCenter</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/观察者模式/">观察者模式</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/30/block/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">白话Block</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
 
-
-
-
-
-
-  
-    <article id="post-block" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/30/block/" class="article-date">
-  	<time datetime="2015-10-29T16:00:00.000Z" itemprop="datePublished">2015-10-30</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/30/block/">白话Block</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="本文内容">本文内容</h2><ul>
-<li>什么是block？</li>
-<li>block的用途</li>
-<li>block的用法</li>
-<li>block在使用中遇到的问题</li>
-<li>如何使用xcode检测循环引用引发的内存问题？</li>
-</ul>
-<h2 id="什么是block?">什么是block?</h2><p>什么是闭包(closure)？<br>闭包是可以包含自由（未绑定到特定对象）变量的代码块。<br>什么是函数式编程？<br>函数可以随时创建、作为参数传递、作为返回值返回。<br>在函数式编程中，把函数当参数来回传递，而这个，说成术语，我们把他叫做高阶函数。<br>Objective－C在没有block之前，没有类似的机制，有了block，Objective－C也就具备了函数式编程的能力，block是对象，有自己的ISA指针，可以随时创建，作为参数传递，作为返回值返回<br>block是带有局部变量的匿名函数（即没有名称的函数），就是OC中的闭包（closure）,又名匿名函数，块函数，块</p>
-<h2 id="block的用途">block的用途</h2><p>block都是一些简短代码片段的封装，适用作工作单元，通常用来做并发任务、遍历、以及回调。</p>
-<h2 id="block的用法">block的用法</h2><ol>
-<li><p>block 语法，用插入符号”^”定义一个block字面量，无参，无返回值的block 如下</p>
-<blockquote>
-<p>^{<br>NSLog(@”This is A Block”);<br>}();</p>
-</blockquote>
-<p>控制台输出：</p>
-<blockquote>
-<p>2015-11-03 12:04:26.266 Whisper[63849:545630] This is a block</p>
-</blockquote>
-</li>
-<li><p>block的类型(可以用isa 指针指向的地址查看)</p>
-<ul>
-<li>NSConcreteGlobalBlock 全局的静态 block，不会访问任何外部变量。</li>
-<li>NSConcreteStackBlock 保存在栈中的 block，当函数返回时会被销毁。</li>
-<li>NSConcreteMallocBlock 保存在堆中的 block，当引用计数为 0 时会被销毁。</li>
-<li>在 ARC 开启的情况下，将只会有 NSConcreteGlobalBlock 和 NSConcreteMallocBlock 类型的 block</li>
-</ul>
-</li>
-<li><p>block Pointer，主要用来简化block的写法，block Pointer定义如下：</p>
-<blockquote>
-<p>回传值 （^名字）(参数列表);</p>
-</blockquote>
-<p>block Pointer 具体使用</p>
-<blockquote>
-<p>int (^myBlock) (int a);     // 声明一个名字为myBlock的block 指针，该指针指向的Block有一个int输入和一个int 输出<br> myBlock = ^(int a){ return a*a;};     //将Block的实体指定给myBlock指针<br> int result = myBlock(4);     //调用blcok实体</p>
-</blockquote>
-</li>
-<li><p>使用typedef给复杂变量block定义类型别名，定义规则：<br>在传统的变量声明表达式里用类型名替代变量名，然后把关键字typedef加在该语句的开头，示例如下：</p>
-<blockquote>
-<p>typedef int (^myBlock) (int a);      //使用定义的新类型myBlock来声明对象，等价于int (^myBlock) (int a);</p>
-</blockquote>
-<p>一般借助block的类型别名，为特定的类添加block属性变量，做传值或者事件使用。声明block属性变量的时候，property中需设置成copy</p>
-</li>
-<li><p>用block来存取变量<br>一个Block的内部是可以引用自身作用域外的变量的，包括static变量，extern变量或自由变量，对于自由变量，在Block中是只读的。在引入block的同时，还引入了一种特殊的__block关键字,变量存储修饰符,将变量的存储范围扩展为该函数以及该函数内定义的block的行为主体内(<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html" target="_blank" rel="external">苹果官方文档</a>)。<br>存取静态变量</p>
-<blockquote>
-<p> static int outA = 8;<br> int (^myPtr)(int) = ^(int a){return outA + a;};<br> outA = 5;<br> int result = myPtr(3);        //result的值是8，因为outA是static类型的变量</p>
-</blockquote>
-<p>存取自由变量</p>
-<blockquote>
-<p>{<br> __block int num = 5;<br>  int (^myPtr)(int) = ^(int a){return num++;};<br> int (^myPtr2)(int) = ^(int a){return num++;};<br> int result = myPtr(0);     //result的值为5，num的值为6<br> result = myPtr2(0);        //result的值为6，num的值为7<br> NSLog(@”result=%d”, result);<br>}  </p>
-</blockquote>
-</li>
-<li><p>block作为类的属性</p>
-<blockquote>
-<p>typedef int (^MyBlock) (int a);<br>@property(nonatomic,copy) int (^block)(int a);   //使用c的方式, 不能使用OC函数形参的写法.<br>@property (nonatomic,copy) MyBlock blockName;</p>
-</blockquote>
-</li>
-<li><p>block作为函数参数，苹果官方文档建议一个方法最好只有一个block参数，并且block参数一般作为最后一个参数</p>
-<blockquote>
-<p>- (void)beginTaskWithCallbackBlock:(void (^)(void))callbackBlock {<br> …<br> callbackBlock();<br>}<br>- (void)beginFetchWithCallbackBlock:(MyBlock)callbackBlock {<br> …<br> callbackBlock(3);<br>}</p>
-</blockquote>
-</li>
-<li><p>以block作为函数返回值</p>
-<blockquote>
-<p>-(int (^)(int))blockBack{<br> return ^(int cout){ return cout;};<br>}</p>
-</blockquote>
-</li>
-</ol>
-<h2 id="block在使用中遇到的问题">block在使用中遇到的问题</h2><ol>
-<li>修改局部变量需要在局部变量前面加__block修饰符，将变量的存储范围扩展为该函数以及该函数内定义的block的行为主体内。</li>
-<li>在属性定义一个block的时候需要使用copy，因为块是在栈上分配的,一旦离开作用域, 就会释放, 因此如果你要把块用在别的地方, 必须要复制一份</li>
-<li><p>在ARC下, 以下几种情况, Block会自动被从栈复制到堆</p>
-<ul>
-<li>被执行copy方法</li>
-<li>作为方法返回值</li>
-<li>将Block赋值给附有__strong修饰符的id类型的类或者Blcok类型成员变量时</li>
-<li>在方法名中含有usingBlock的Cocoa框架方法或者GCD的API中传递的时候.</li>
-</ul>
-</li>
-<li><p>循环引用的问题</p>
-<ul>
-<li>A和B两个对象，A持有B，B同时也持有A，A只有B释放之后才有可能释放，同样B只有A释放后才可能释放，当双方都在等待对方释放的时候， retain cycle就形成了，结果是，两个对象都永远不会被释放，最终内存泄露。</li>
-<li>循环引用（retain cycle）的解决</li>
-<li><p>尽量保持子对象引用父对象的时候使用弱引用，也就是assign，比如</p>
-<blockquote>
-<p>@property (nonatomic,assign) NSObject *parent;</p>
-</blockquote>
-</li>
-<li><p>及时地将造成retain cycle中的一个变量设置为nil，将环break掉</p>
-</li>
-<li><p>block中的retain cycle</p>
-<blockquote>
-<p>@interface XYZBlockKeeper : NSObject<br>@property (copy) void (^block)(void);<br>@implementation XYZBlockKeeper<br>- (void)configureBlock {<br>self.block = ^{<br>   [self doSomething];    // capturing a strong reference to self<br>   // creates a reference cycle<br>};<br>}<br>…<br>@end</p>
-</blockquote>
-</li>
-<li><p>block中retain cycle 的解决</p>
-</li>
-<li><p>方法一 将引用的一方变成weak，从而避免循环引用</p>
-<blockquote>
-<p>- (void)configureBlock {<br>XYZBlockKeeper * __weak weakSelf = self;<br>self.block = ^{<br>   [weakSelf doSomething];   // capture the weak reference<br>   // to avoid the reference cycle<br>}<br>}<br>或者<br>- (void)configureBlock {<br>__weak typeof(self) weakSelf = self;<br>self.block = ^{<br>//如果想防止 weakSelf 被释放，可以再次强引用<br> typeof(weakSelf) strongSelf = weakSelf;<br> [weakSelf doSomething];   // capture the weak reference cycle<br>}<br>}</p>
-</blockquote>
-</li>
-<li><p>方法二.使用完某对象没有必要在保留该对象的时候，在block里面将对象释放即可打破保留环</p>
-<blockquote>
-<p>- (void)downloadData {<br>NSURL *url = [NSURL URLWithString:@”<a href="http://www.baidu.com" target="_blank" rel="external">http://www.baidu.com</a>“];<br>_networkFetcher = [[EOCNetworkFetcher alloc] initWithURL:url];<br>[_networkFetcher startWithCompletionHandler:^(NSData *data) {<br>   _fetchedData = data;<br>   _networkFetcher = nil;   <strong>//加上此行，此处是为了打破循环引用</strong><br>}];<br>}</p>
-</blockquote>
-</li>
-<li><p>方法三. 在调用完block之后，将该block设置为nil(block为某类的属性的时候，这么使用)</p>
-<blockquote>
-<p>- (void)p_requestCompleted {<br>if(_completionHandler) {<br>   _completionHandler(_downloadData);<br>}<br>self.completionHandler = nil;//加上此行，此处是为了打破循环引用<br>}</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="如何使用xcode检测循环引用(引用自《iOS开发进阶》)？">如何使用xcode检测循环引用(引用自《iOS开发进阶》)？</h2><ol>
-<li><p>Xcode 的Instruments工具集可以很方便地检测循环引用，但是检测不出block产生的循环引用，示例如下</p>
-<blockquote>
-<p>- (void)viewDidLoad {<br> [super viewDidLoad];<br> //firstArray 持有secondArray, secondArray 持有 firstArray,形成retain cycle<br> NSMutableArray *firstArray = [NSMutableArray array];<br> NSMutableArray *secondArray = [NSMutableArray array];<br> [firstArray addObject:secondArray];<br> [secondArray addObject:firstArray];<br>}</p>
-</blockquote>
-</li>
-<li><p>在Xcode 的菜单栏，选择“Product”—&gt;“Profile”,在调出的界面中选择”Leaks”—&gt;”choose”,调出Instruments界面。<br>Instruments会用红色的X表示一次内存泄露的产生，Instruments中可以通过切换到“Leaks”，单击“Cycles&amp;Roots”，就可以看到以图形方式显示出来的循环引用,这样，我们就可以很方便的看到产生循环引用的对象了。</p>
-<ul>
-<li>具体使用步骤如下：<br><img src="http://7pn65g.com1.z0.glb.clouddn.com/retainCycle1.gif" alt="Instruments"></li>
-</ul>
-</li>
-</ol>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS中block的使用/">iOS中block的使用</a></li></ul>
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/block/">block</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
 
 
 
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'dullgrass'; // required: replace example with your forum shortname
 
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
 
-  
-    <article id="post-tableView" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/09/29/tableView/" class="article-date">
-  	<time datetime="2015-09-28T16:00:00.000Z" itemprop="datePublished">2015-09-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/29/tableView/">UITableView常见问题（一）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="iOS_7_中UITableView顶部64像素空白区域的问题:">iOS 7 中UITableView顶部64像素空白区域的问题:</h3><h4 id="问题展示如下图所示:">问题展示如下图所示:</h4><p> <img src="http://7pn65g.com1.z0.glb.clouddn.com/quesion.png" alt="quesiotn"></p>
-<h4 id="产生原因分析:">产生原因分析:</h4><p>iOS7中 UIViewController新增属性Adjust Scroll View Insets，即是否根据所在界面的UINavigationBar与UITabbar的高度，自动调整UIScroll View的Inset，它的意义在于，让开发者全屏幕布局，这样可以充分利用导航栏的毛玻璃效果。</p>
-<h4 id="解决方案:">解决方案:</h4><ul>
-<li><p>屏蔽Adjust Scroll View Insets属性，则UITableView顶部的64像素的空白区域消失，操作如下:</p>
-<p><img src="http://7pn65g.com1.z0.glb.clouddn.com/no64Pix.gif" alt="no64Pix"></p>
-</li>
-<li><p>保留Adjust Scroll View Insets属性，将UITableView的Top Layout Guide约束设置成 -64像素，产生UINavigationBar的毛玻璃效果，操作如下:</p>
-<p><img src="http://7pn65g.com1.z0.glb.clouddn.com/64Pix.gif" alt="64Pix"></p>
-</li>
-</ul>
-<hr>
-<h3 id="UITableViewCell自适应cell内部控件的高度">UITableViewCell自适应cell内部控件的高度</h3><h4 id="iOS8以前的解决方案如下：">iOS8以前的解决方案如下：</h4><hr>
-<p>在UITableViewCell出现之前，手动计算cell内部会发生变化的控件的高度,如果有多个高度会变化的控件, 那么你就需要计算多次…再统一相加起来,返回给cell的高度，计算cell高度的操作，在主线程进行，会导致性能问题。<br>iOS7增加新的代理方法estimatedHeightForRowAtIndexPath，在这个代理方法里面计算cell的高度，解决了首次加载tableviewcell出现的性能问题(主线程大量计算cell高度，会造成性能问题)</p>
-<h4 id="iOS8以后的解决方案如下：">iOS8以后的解决方案如下：</h4><hr>
-<p>在iOS8中,苹果引入了UITableView的一项新功能—Self Sizing Cells，该功能为展示动态内容提供了一种解决方案，使用步骤如下:</p>
-<ul>
-<li>为自定义的UITableViewCell中的控件指定Auto Layout约束（可使用代码添加约束或者StoryBoard或者XIB添加约束</li>
-<li>按如下代码设置UITableView</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ _tableView.estimatedRowHeight = <span class="number">160</span>;</span><br><span class="line">$ _tableView.rowHeight = UITableViewAutomaticDimension;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>具体操作步骤如下:</p>
-<p><img src="http://7pn65g.com1.z0.glb.clouddn.com/AutoCell.gif" alt="autoCell"></p>
-</li>
-</ul>
-<hr>
-<h4 id="代码下载">代码下载</h4><p><a href="https://codeload.github.com/dullgrass/AutoResizeTableViewCell/zip/master" target="_blank" rel="external">StoryBoard方式自适应cell代码下载</a><br><a href="https://codeload.github.com/jszumski/auto-layout-table-cells/zip/master" target="_blank" rel="external">代码方式自适应cell代码下载</a></p>
-<hr>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Self-Sizing-Cells/">Self Sizing Cells</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITableView-自适应cell/">UITableView 自适应cell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITableView顶部64像素空白区域/">UITableView顶部64像素空白区域</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/UITableView/">UITableView</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-  
 </div>
       <footer id="footer">
   <div class="outer">
@@ -706,8 +500,8 @@
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
