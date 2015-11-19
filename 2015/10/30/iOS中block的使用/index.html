@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>白话Block | Dullgrass&#39;s Blog</title>
+  <title>iOS中block的使用 | Dullgrass&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="本文内容
 什么是block？
@@ -14,8 +14,8 @@ block在使用中遇到的问题
 
 什么是block?什么是闭包(closure)？闭包是可以包含自由（未绑定到特定对象）变量的代码块。什么是函数式编程？函数可以随时创建、作为参数传递、作为返回值返回。在函数式编程中，把函数当参数来回传递，而这个，说成术语，我们把他叫做高阶函数。Objec">
 <meta property="og:type" content="article">
-<meta property="og:title" content="白话Block">
-<meta property="og:url" content="https://github.com/dullgrass/2015/10/30/block/index.html">
+<meta property="og:title" content="iOS中block的使用">
+<meta property="og:url" content="https://github.com/dullgrass/2015/10/30/iOS中block的使用/index.html">
 <meta property="og:site_name" content="Dullgrass's Blog">
 <meta property="og:description" content="本文内容
 什么是block？
@@ -26,9 +26,9 @@ block在使用中遇到的问题
 
 什么是block?什么是闭包(closure)？闭包是可以包含自由（未绑定到特定对象）变量的代码块。什么是函数式编程？函数可以随时创建、作为参数传递、作为返回值返回。在函数式编程中，把函数当参数来回传递，而这个，说成术语，我们把他叫做高阶函数。Objec">
 <meta property="og:image" content="http://7pn65g.com1.z0.glb.clouddn.com/retainCycle1.gif">
-<meta property="og:updated_time" content="2015-11-05T01:57:51.000Z">
+<meta property="og:updated_time" content="2015-11-17T03:26:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="白话Block">
+<meta name="twitter:title" content="iOS中block的使用">
 <meta name="twitter:description" content="本文内容
 什么是block？
 block的用途
@@ -115,6 +115,8 @@ block在使用中遇到的问题
 				        
 							<li><a href="/archives">所有文章</a></li>
 				        
+							<li><a href="https://cn.linkedin.com/pub/cuiping-wu/b5/b75/7b4">关于我</a></li>
+				        
 						</ul>
 					</nav>
 					<nav class="header-nav">
@@ -135,7 +137,7 @@ block在使用中遇到的问题
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/KVC/" style="font-size: 10px;">KVC</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/NSNotificationCenter/" style="font-size: 10px;">NSNotificationCenter</a> <a href="/tags/Self-Sizing-Cells/" style="font-size: 10px;">Self Sizing Cells</a> <a href="/tags/UITableView-自适应cell/" style="font-size: 10px;">UITableView 自适应cell</a> <a href="/tags/UITableView顶部64像素空白区域/" style="font-size: 10px;">UITableView顶部64像素空白区域</a> <a href="/tags/iOS中block的使用/" style="font-size: 10px;">iOS中block的使用</a>
+						<a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/KVC/" style="font-size: 10px;">KVC</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/NSNotificationCenter/" style="font-size: 10px;">NSNotificationCenter</a> <a href="/tags/Self-Sizing-Cells/" style="font-size: 10px;">Self Sizing Cells</a> <a href="/tags/UITableView-自适应cell/" style="font-size: 10px;">UITableView 自适应cell</a> <a href="/tags/UITableView顶部64像素空白区域/" style="font-size: 10px;">UITableView顶部64像素空白区域</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中block的使用/" style="font-size: 10px;">iOS中block的使用</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a>
 					</div>
 				</section>
 				
@@ -184,6 +186,8 @@ block在使用中遇到的问题
 		        
 					<li><a href="/archives">所有文章</a></li>
 		        
+					<li><a href="https://cn.linkedin.com/pub/cuiping-wu/b5/b75/7b4">关于我</a></li>
+		        
 		        <div class="clearfix"></div>
 				</ul>
 			</nav>
@@ -203,10 +207,10 @@ block在使用中遇到的问题
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-block" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-iOS中block的使用" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/30/block/" class="article-date">
+      <a href="/2015/10/30/iOS中block的使用/" class="article-date">
   	<time datetime="2015-10-29T16:00:00.000Z" itemprop="datePublished">2015-10-30</time>
 </a>
     </div>
@@ -220,7 +224,7 @@ block在使用中遇到的问题
         
   
     <h1 class="article-title" itemprop="name">
-      白话Block
+      iOS中block的使用
     </h1>
   
 
@@ -379,7 +383,7 @@ block在使用中遇到的问题
     
 <nav id="article-nav">
   
-    <a href="/2015/11/05/observer/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/11/05/细说KVO & KVC & NSNotificationCenter那些事/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
@@ -389,7 +393,7 @@ block在使用中遇到的问题
     </a>
   
   
-    <a href="/2015/09/29/tableView/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/09/29/UITableView常见问题/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">UITableView常见问题（一）</div>
       <strong class="article-nav-caption">></strong>
     </a>
