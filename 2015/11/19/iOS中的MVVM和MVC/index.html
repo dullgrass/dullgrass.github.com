@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>iOS中GCD的使用小结 | Dullgrass&#39;s Blog</title>
+  <title>iOS中的MVC和MVVM | Dullgrass&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="本篇博客共分以下几个模块来介绍GCD的相关内容:
 
@@ -14,14 +14,12 @@ The main queue(主线程串行队列)
 Global queue（全局并发队列)
 Custom queue (自定义队列)
 Group queue (队列组)
-GCD中一些系统提供的常用dispatch方法多线程相关概念
-
-
-进程与线程
-进程概念： 进程是程序在计算机上">
+GCD中一些系统提供的常用dispatch方法架构模式中的一些概念:
+一般软件产品的三层架构:
+表示层(UI">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS中GCD的使用小结">
-<meta property="og:url" content="https://github.com/dullgrass/2015/11/19/iOS中GCD的使用小结/index.html">
+<meta property="og:title" content="iOS中的MVC和MVVM">
+<meta property="og:url" content="https://github.com/dullgrass/2015/11/19/iOS中的MVVM和MVC/index.html">
 <meta property="og:site_name" content="Dullgrass's Blog">
 <meta property="og:description" content="本篇博客共分以下几个模块来介绍GCD的相关内容:
 
@@ -32,14 +30,14 @@ The main queue(主线程串行队列)
 Global queue（全局并发队列)
 Custom queue (自定义队列)
 Group queue (队列组)
-GCD中一些系统提供的常用dispatch方法多线程相关概念
-
-
-进程与线程
-进程概念： 进程是程序在计算机上">
-<meta property="og:updated_time" content="2015-11-20T01:40:33.000Z">
+GCD中一些系统提供的常用dispatch方法架构模式中的一些概念:
+一般软件产品的三层架构:
+表示层(UI">
+<meta property="og:image" content="http://7pn65g.com1.z0.glb.clouddn.com/appStructure.png">
+<meta property="og:image" content="http://7pn65g.com1.z0.glb.clouddn.com/mvc.png">
+<meta property="og:updated_time" content="2015-11-26T01:08:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS中GCD的使用小结">
+<meta name="twitter:title" content="iOS中的MVC和MVVM">
 <meta name="twitter:description" content="本篇博客共分以下几个模块来介绍GCD的相关内容:
 
 多线程相关概念
@@ -49,11 +47,9 @@ The main queue(主线程串行队列)
 Global queue（全局并发队列)
 Custom queue (自定义队列)
 Group queue (队列组)
-GCD中一些系统提供的常用dispatch方法多线程相关概念
-
-
-进程与线程
-进程概念： 进程是程序在计算机上">
+GCD中一些系统提供的常用dispatch方法架构模式中的一些概念:
+一般软件产品的三层架构:
+表示层(UI">
   
     <link rel="alternative" href="/atom.xml" title="Dullgrass&#39;s Blog" type="application/atom+xml">
   
@@ -224,10 +220,10 @@ GCD中一些系统提供的常用dispatch方法多线程相关概念
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-iOS中GCD的使用小结" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-iOS中的MVVM和MVC" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/11/19/iOS中GCD的使用小结/" class="article-date">
+      <a href="/2015/11/19/iOS中的MVVM和MVC/" class="article-date">
   	<time datetime="2015-11-18T16:00:00.000Z" itemprop="datePublished">2015-11-19</time>
 </a>
     </div>
@@ -241,7 +237,7 @@ GCD中一些系统提供的常用dispatch方法多线程相关概念
         
   
     <h1 class="article-title" itemprop="name">
-      iOS中GCD的使用小结
+      iOS中的MVC和MVVM
     </h1>
   
 
@@ -274,56 +270,32 @@ GCD中一些系统提供的常用dispatch方法多线程相关概念
 <li>Global queue（全局并发队列)</li>
 <li>Custom queue (自定义队列)</li>
 <li>Group queue (队列组)</li>
-<li>GCD中一些系统提供的常用dispatch方法<h2 id="多线程相关概念">多线程相关概念</h2></li>
-</ul>
-<ol>
-<li>进程与线程<ul>
-<li>进程概念： 进程是程序在计算机上的一次执行活动，打开一个app，就开启了一个进程，可包含多个线程。</li>
-<li>线程概念： 独立执行的代码段，一个线程同时间只能执行一个任务，反之多线程并发就可以在同一时间执行多个任务。</li>
-<li>iOS程序中，主线程（又叫作UI线程）主要任务是处理UI事件，显示和刷新UI，（只有主线程有直接修改UI的能力）耗时的操作放在子线程（又叫作后台线程、异步线程）。在iOS中开子线程去处理耗时的操作，可以有效提高程序的执行效率，提高资源利用率。但是开启线程会占用一定的内存，（主线程的堆栈大小是1M，第二个线程开始都是512KB，并且该值不能通过编译器开关或线程API函数来更改）降低程序的性能。所以一般不要同时开很多线程。</li>
-</ul>
-</li>
-<li>线程相关<ul>
-<li>同步线程：同步线程会阻塞当前线程去执行线程内的任务，执行完之后才会反回当前线程。</li>
-<li>异步线程：异步线程不会阻塞当前线程，会开启其他线程去执行线程内的任务。</li>
-<li>串行队列：线程任务按先后顺序逐个执行（需要等待队列里面前面的任务执行完之后再执行新的任务）。</li>
-<li>并发队列：多个任务按添加顺序一起开始执行（不用等待前面的任务执行完再执行新的任务），但是添加间隔往往忽略不计，所以看着像是一起执行的。</li>
-<li>并发VS并行：并行是基于多核设备的，并行一定是并发，并发不一定是并行。</li>
+<li>GCD中一些系统提供的常用dispatch方法<h2 id="架构模式中的一些概念:">架构模式中的一些概念:</h2><ul>
+<li>一般软件产品的三层架构:<br><img src="http://7pn65g.com1.z0.glb.clouddn.com/appStructure.png" alt="appStructure"></li>
+<li>表示层(UI Layer)：用户界面，即App开发中控件的布局</li>
+<li>业务逻辑(Business Logic Layer):被控制层调用，可以去调用数据层，一般和界面没多大关系，主要指业务方规则的制定，业务流程的实现等。</li>
+<li>数据访问(Data Access Layer)：有时也会被称为持久层，其功能主要是负责数据库的访问，可以访问数据库系统、二进制文件、文本文档或是XML文档。 简单的说法就是实现对数据表的Select，Insert，Update，Delete的操作。如果要加入ORM的元素，那么就会包括对象和数据表之间的mapping，以及对象实体的持久化</li>
+<li>表示逻辑(Presentation Logic):将Model数据转换为View可以呈现的东西的事情，例如将一个NSDate转换为一个格式化过的NSString。</li>
 </ul>
 </li>
-<li>多线程中会出现的问题<ul>
-<li>Critical Section（临界代码段）<br>指的是不能同时被两个线程访问的代码段，比如一个变量，被并发进程访问后可能会改变变量值，造成数据污染（数据共享问题）。</li>
-<li>Race Condition (竞态条件)<br>当多个线程同时访问共享的数据时，会发生争用情形，第一个线程读取改变了一个变量的值，第二个线程也读取改变了这个变量的值，两个线程同时操作了该变量，此时他们会发生竞争来看哪个线程会最后写入这个变量，最后被写入的值将会被保留下来。</li>
-<li>Deadlock (死锁)<br>两个（多个）线程都要等待对方完成某个操作才能进行下一步，这时就会发生死锁。</li>
-<li>Thread Safe（线程安全）<br>一段线程安全的代码（对象），可以同时被多个线程或并发的任务调度，不会产生问题，非线程安全的只能按次序被访问。</li>
-<li>所有Mutable对象都是非线程安全的，所有Immutable对象都是线程安全的，使用Mutable对象，一定要用同步锁来同步访问（@synchronized）。</li>
-<li>互斥锁：能够防止多线程抢夺造成的数据安全问题，但是需要消耗大量的资源</li>
-<li>原子属性（atomic）加锁<ul>
-<li>atomic: 原子属性，为setter方法加锁，将属性以atomic的形式来声明，该属性变量就能支持互斥锁了。</li>
-<li>nonatomic: 非原子属性，不会为setter方法加锁，声明为该属性的变量，客户端应尽量避免多线程争夺同一资源。</li>
 </ul>
-</li>
-<li>Context Switch （上下文切换）<br>当一个进程中有多个线程来回切换时，context switch用来记录执行状态，这样的进程和一般的多线程进程没有太大差别，但会产生一些额外的开销。</li>
+<h2 id="iOS中的MVC">iOS中的MVC</h2><ol>
+<li>MVC设计模式的产生：<br>MVC模式最早由Trygve Reenskaug在1978年提出，是施乐帕罗奥多研究中心（Xerox PARC）在20世纪80年代为程序语言Smalltalk发明的一种软件设计模式</li>
+<li>MVC架构示意图:<br><img src="http://7pn65g.com1.z0.glb.clouddn.com/mvc.png" alt="mvc"></li>
+<li>三层之间的关系:<br>M-V-C三层是紧密联系在一起又相互独立的，每一层内部的变化不影响其他层。每一层都对外提供接口(Interface),供上面一层调用。<br>这样一来，软件就可以实现模块化，修改外观或者数据变更都不用修改其他层，大大方便了维护和升级。</li>
+<li>使用MVC设计模式开发的优缺点：<ul>
+<li>优点:它实现了显示模块与功能模块的分离。提高了程序的可维护性、可移植性、可扩展性与可重用性，降低了程序的开发难度。</li>
+<li>缺点:，MVC 这种分层方式虽然清楚，但是如果使用不当，很可能让大量代码都集中在 Controller 之中，让 MVC 模式变成了 Massive View Controller 模式</li>
 </ul>
 </li>
 </ol>
-<h2 id="多线程编程技术的优缺点比较">多线程编程技术的优缺点比较</h2><ol>
-<li>NSThread <font color="red"> (抽象层次：低)</font><ul>
-<li>优点：轻量级，简单易用，可以直接操作线程对象</li>
-<li>缺点: 需要自己管理线程的生命周期，线程同步。线程同步对数据的加锁会有一定的系统开销。</li>
-</ul>
-</li>
-<li>Cocoa NSOperation <font color="red"> (抽象层次：中)</font><ul>
-<li>优点：不需要关心线程管理，数据同步的事情，可以把精力放在学要执行的操作上。基于GCD，是对GCD 的封装，比GCD更加面向对象</li>
-<li>缺点: NSOperation是个抽象类，使用它必须使用它的子类，可以实现它或者使用它定义好的两个子类NSInvocationOperation、NSBlockOperation.</li>
-</ul>
-</li>
-<li><p>GCD 全称Grand Center Dispatch<font color="red"> (抽象层次：高)</font></p>
-<ul>
-<li>优点：是 Apple 开发的一个多核编程的解决方法，简单易用，效率高，速度快，基于C语言，更底层更高效，并且不是Cocoa框架的一部分，自动管理线程生命周期（创建线程、调度任务、销毁线程）。</li>
-<li><p>缺点: 使用GCD的场景如果很复杂，就有非常大的可能遇到死锁问题。</p>
-<p><strong><font color="red">GCD抽象层次最高，使用也简单，因此，苹果也推荐使用GCD</font></strong></p>
-</li>
+<h2 id="iOS中的MVVM">iOS中的MVVM</h2><ol>
+<li>MVVM设计模式的产生:<br>MVVM 最早于 2005 年被微软的 WPF 和 Silverlight 的架构师 John Gossman 提出，并且应用在微软的软件开发中</li>
+<li>MVVM架构示意图:</li>
+<li>MVVM注释:<br>MVVM在使用当中，通常还会利用双向绑定技术，使得Model变化时，ViewModel会自动更新，而ViewModel变化时，View也会自动更新，所以，MVVM模式有时候又被称作:model-view-binder模式。</li>
+<li>MVVM的优缺点:<ul>
+<li>优点：可以使得Model层和View层解耦。Controller的职责和负责度小，对数据处理逻辑测试更加方便，对bug的原因排查更加方便，耦合性更低。</li>
+<li>缺点：MVVM相比于MVC在编码前要有更清晰的模式思路，如果需要在MVVM中实现双向绑定的话，需要引入更负责的框架，比如ReactiveCocoa来实现。<br>   数据绑定使得bug很难被调试，定位bug的位置变的困难，对于过大的</li>
 </ul>
 </li>
 </ol>
@@ -353,11 +325,11 @@ GCD中一些系统提供的常用dispatch方法多线程相关概念
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_queue_t</span> mainQueue = dispatch_get_main_queue();</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>主线程串行队列<font color="red">同步</font>执行任务，在主线程运行时，会产生<font color="red">死锁</font></p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_queue_t</span> mainQueue = dispatch_get_main_queue();</span><br><span class="line"><span class="built_in">dispatch_sync</span>(mainQueue,^&#123;</span><br><span class="line">  <span class="built_in">NSLog</span>(<span class="string">"MainQueue"</span>);            </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_queue_t</span> mainQueue = dispatch_get_main_queue();</span><br><span class="line"><span class="built_in">dispatch_sync</span>(mainQueue,^&#123;</span><br><span class="line">  <span class="built_in">NSLog</span>(<span class="string">"MainQueue"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>程序一直处于等待状态，block中的代码将执行不到</p>
 </li>
 <li><p>主线程串行队列<font color="red">异步</font>执行任务，在主线程运行，不会产生死锁。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_queue_t</span> mainQueue = dispatch_get_main_queue();</span><br><span class="line"><span class="built_in">dispatch_async</span>(mainQueue,^&#123;</span><br><span class="line">  <span class="built_in">NSLog</span>(<span class="string">"MainQueue"</span>);            </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_queue_t</span> mainQueue = dispatch_get_main_queue();</span><br><span class="line"><span class="built_in">dispatch_async</span>(mainQueue,^&#123;</span><br><span class="line">  <span class="built_in">NSLog</span>(<span class="string">"MainQueue"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>程序正常运行，block中的代码正常运行</p>
 </li>
 <li><p>从子线程，异步返回主线程更新UI<font color="red">&lt;这种使用方式比较多&gt;</font></p>
@@ -525,18 +497,9 @@ GCD中一些系统提供的常用dispatch方法多线程相关概念
     
 <nav id="article-nav">
   
-    <a href="/2015/11/19/iOS中的MVVM和MVC/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          iOS中的MVC和MVVM
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/11/05/细说KVO & KVC & NSNotificationCenter那些事/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">细说KVO &amp; KVC &amp; NSNotificationCenter那些事</div>
+    <a href="/2015/11/19/iOS中GCD的使用小结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iOS中GCD的使用小结</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
