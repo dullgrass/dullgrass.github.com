@@ -212,15 +212,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##本博客主要分以下几个方面来介绍iOS中的runtime</p>
-<ul>
+        <h2 id="本博客主要分以下几个方面来介绍iOS中的runtime">本博客主要分以下几个方面来介绍iOS中的runtime</h2><ul>
 <li>Runtime的概念介绍</li>
 <li>iOS中的消息机制</li>
 <li>Runtime的作用</li>
 </ul>
-<h3 id="动态编程语言和静态编程语言的区别">动态编程语言和静态编程语言的区别</h3><ol>
+<h2 id="Objective-C语言中的Runtime概念">Objective-C语言中的Runtime概念</h2><ol>
+<li>动态编程语言和静态编程语言的区别<ul>
 <li>动态编程语言:在程序运行过程中可以改变数据类型的结构，对象的函数，变量可以被修改删除。例如OC</li>
-<li>静态编程语言:在程序编译阶段检查数据的类型，数据类型的结构不可以在运行时被改变。例如C<h2 id="Objective-C语言中的Runtime概念">Objective-C语言中的Runtime概念</h2></li>
+<li>静态编程语言:在程序编译阶段检查数据的类型，数据类型的结构不可以在运行时被改变。例如C</li>
+</ul>
+</li>
 <li>Runtime—运行时系统是一个有公开接口的动态库，由一些数据结构和函数的集合组成，这些数据结构和函数的声明头文件，在/usr/include/objc,这些函数支持用纯C的函数来实现和Objective-C同样的功能</li>
 <li>Runtime—是开源的，目前苹果公司和GNU各自维护一个开源的runtime版本,<a href="http://opensource.apple.com/tarballs/objc4/objc4-437.1.tar.gz" target="_blank" rel="external">apple open runtime</a>;</li>
 <li><p>Runtime—在OC中的使用方式</p>
