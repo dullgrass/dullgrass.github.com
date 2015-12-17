@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Grand-Center-Dispatch/" style="font-size: 10px;">Grand Center Dispatch</a> <a href="/tags/KVC/" style="font-size: 10px;">KVC</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/NSNotificationCenter/" style="font-size: 10px;">NSNotificationCenter</a> <a href="/tags/Self-Sizing-Cells/" style="font-size: 10px;">Self Sizing Cells</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中block的使用/" style="font-size: 10px;">iOS中block的使用</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/观察者模式/" style="font-size: 10px;">观察者模式</a>
+						<a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Grand-Center-Dispatch/" style="font-size: 10px;">Grand Center Dispatch</a> <a href="/tags/KVC/" style="font-size: 10px;">KVC</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/NSNotificationCenter/" style="font-size: 10px;">NSNotificationCenter</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Self-Sizing-Cells/" style="font-size: 10px;">Self Sizing Cells</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中block的使用/" style="font-size: 10px;">iOS中block的使用</a> <a href="/tags/iOS开发底层/" style="font-size: 10px;">iOS开发底层</a> <a href="/tags/iOS开发进阶/" style="font-size: 10px;">iOS开发进阶</a> <a href="/tags/动态编程语言/" style="font-size: 10px;">动态编程语言</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/观察者模式/" style="font-size: 10px;">观察者模式</a>
 					</div>
 				</section>
 				
@@ -185,6 +185,141 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-runtime" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/17/runtime/" class="article-date">
+  	<time datetime="2015-12-16T16:00:00.000Z" itemprop="datePublished">2015-12-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/17/runtime/">iOS中runtime</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="动态编程语言和静态编程语言的区别">动态编程语言和静态编程语言的区别</h2><ol>
+<li>动态编程语言:在程序运行过程中可以改变数据类型的结构，对象的函数，变量可以被修改删除。例如OC</li>
+<li>静态编程语言:在程序编译阶段检查数据的类型，数据类型的结构不可以在运行时被改变。例如C<h2 id="Objective-C语言中的Runtime">Objective-C语言中的Runtime</h2></li>
+<li>Runtime—运行时系统是一个有公开接口的动态库，由一些数据结构和函数的集合组成，这些数据结构和函数的声明头文件，在/usr/include/objc,这些函数支持用纯C的函数来实现和Objective-C同样的功能</li>
+<li>Runtime—是开源的，目前苹果公司和GNU各自维护一个开源的runtime版本,<a href="http://opensource.apple.com/tarballs/objc4/objc4-437.1.tar.gz" target="_blank" rel="external">apple open runtime</a>;</li>
+<li><p>Runtime—在OC中的使用方式</p>
+<ul>
+<li>通过Objective-C源代码</li>
+<li><p>通过类NSObject的方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class 返回对象的类</span><br><span class="line">isKindeOfClass:和isMemberOfClass: 检查对象是否在指定的类继承体系中</span><br><span class="line">respondsToSelector: 检查对象能否响应指定的消息</span><br><span class="line">conformsToProtocol: 检查对象是否实现了指定协议类的方法</span><br><span class="line">methodForSelector: 返回指定方法实现的地址</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过运行时系统的函数<br>通过导入头文件<code>&quot;#import&lt;objc/message.h&gt;&quot;</code>调用相关函数</p>
+<h2 id="Runtime中的消息机制">Runtime中的消息机制</h2></li>
+</ul>
+</li>
+<li><p>Objective-C中消息机制的相关概念</p>
+<ul>
+<li>message(消息) –包括了函数名+参数列表的一种抽象</li>
+<li>method（方法）– 是真正的存在的代码。如：- (int)meaning { return 42; }</li>
+<li>selector（方法选择器）–通过SEL类型存在，描述一个特定的method 或者说 message。在实际编程中，可以通过selector进行检索方法等操作</li>
+<li>SEL(方法选择器) – 是一个char*指针，仅仅表示它所代表的方法名字,SEL只是一个指向方法的指针（准确的说，只是一个根据方法名hash化了的KEY值，能唯一代表一个方法），它的存在只是为了加快方法的查询速度</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//SEL</span></span><br><span class="line">SEL selector = <span class="keyword">@selector</span>(message); <span class="comment">//@selector不是函数调用，只是给这个坑爹的编译器的一个提示   </span></span><br><span class="line"> <span class="built_in">NSLog</span> (<span class="string">@"%s"</span>, (<span class="keyword">char</span> *)selector); <span class="comment">//print message   </span></span><br><span class="line"> <span class="comment">//以下函数命名方式这被认为是一种编译错误</span></span><br><span class="line">-(<span class="keyword">void</span>)setWidth:(<span class="keyword">int</span>)width；   </span><br><span class="line">-(<span class="keyword">void</span>)setWidth:(<span class="keyword">double</span>)width；</span><br></pre></td></tr></table></figure>
+<ul>
+<li>IMP –函数指针</li>
+<li>我们可以通过SEL方便、快速、准确的获得它所对应的IMP（也就是函数指针），而在取得了函数指针之后，也就意味着我们取得了执行的时候的这段方法的代码的入口，这样我们就可以像普通的C语言函数调用一样使用这个函数指针。当然我们可以把函数指针作为参数传递到其他的方法，或者实例变量里面，从而获得极大的动态性</li>
+</ul>
+</li>
+</ol>
+<h2 id="Runtime的中相关函数的使用">Runtime的中相关函数的使用</h2><ol>
+<li><p>关联对象：主要为分类增加属性和实例变量。</p>
+<p> <strong>能用扩展一般不用继承，因为随着继承深度的增加，代码可维护性变差</strong></p>
+  <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">char</span> myKey;  <span class="comment">//定义一个静态字符</span></span><br><span class="line"><span class="comment">/*!</span><br><span class="line"> *  给关联对象赋值</span><br><span class="line"> *</span><br><span class="line"> *  @param self 需要添加关联的分类</span><br><span class="line"> *  @param key  const void *，key仅仅是一个地址，不是字符串内容。具体指向内容不用关心</span><br><span class="line"> *  @param value 关联对象的值</span><br><span class="line"> *  @param policy 关联策略，类似于对象的属性修饰符，OBJC_ASSOCIATION_RETAIN_NONATOMIC等</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"> objc_setAssociatedObject(<span class="keyword">self</span>, &amp;myKey, model, OBJC_ASSO<span class="built_in">CIATION_RETAIN_NONATOMIC</span>);</span><br><span class="line"><span class="comment">//给关联对象赋值</span></span><br><span class="line"><span class="comment">/*!</span><br><span class="line"> *  根据关联的key，获取关联的值</span><br><span class="line"> *</span><br><span class="line"> *  @param self  需要添加关联的分类</span><br><span class="line"> *  @param myKey onst void *，key仅仅是一个地址，不是字符串内容。具体指向内容不用关心</span><br><span class="line"> *</span><br><span class="line"> *  @return 关联的对象的值</span><br><span class="line"> */</span></span><br><span class="line"> objc_getAssociatedObject(<span class="keyword">self</span>, &amp;myKey);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取对象的私有变量，私有方法，动态添加属性、方法等。</p>
+<ul>
+<li><p>获取类名</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class class = [objc class];</span><br><span class="line">class_getName(class);</span><br><span class="line">class_getSuperclass(class);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取成员变量（可以获取私有成员变量）</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">CaculatorMaker *make = [[CaculatorMaker alloc] init];</span><br><span class="line">Class objcClass = [make class];</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">Ivar *ivars = class_copyIvarList(objcClass, &amp;outCount);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;outCount; i++) &#123;</span><br><span class="line">   Ivar ivar = ivars[i];</span><br><span class="line">   <span class="keyword">const</span> <span class="keyword">char</span> *ivarString = ivar_getName(ivar);</span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@"the variable of make is %s"</span>,ivarString);</span><br><span class="line"> &#125;</span><br><span class="line"> free(ivars);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取属性</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*!</span><br><span class="line"> *  获取对象的所有属性和属性值</span><br><span class="line"> *</span><br><span class="line"> *  @param object 对象</span><br><span class="line"> *</span><br><span class="line"> *  @return 属性和属性值数组</span><br><span class="line">*/</span></span><br><span class="line">- (<span class="built_in">NSMutableArray</span> *)getObjectPropertyAndValues:(<span class="keyword">id</span>)object</span><br><span class="line">&#123;</span><br><span class="line">     <span class="built_in">NSMutableArray</span> *array = [<span class="built_in">NSMutableArray</span> new];</span><br><span class="line">     Class objcClass = [object class];</span><br><span class="line">     <span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span> ;</span><br><span class="line">     objc_property_t *properties = class_copyPropertyList(objcClass, &amp;outCount);</span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; outCount; i++) &#123;</span><br><span class="line">       objc_property_t property = properties[i];</span><br><span class="line">       <span class="keyword">const</span> <span class="keyword">char</span> *propertyName = property_getName(property);</span><br><span class="line">       <span class="built_in">NSString</span> *propertyKey = [<span class="built_in">NSString</span> stringWithUTF8String:propertyName];</span><br><span class="line">       <span class="built_in">NSString</span> *propertyValue = [object valueForKey:propertyKey];</span><br><span class="line">       RACTuple *tuple = RACTuplePack(propertyKey,propertyValue);</span><br><span class="line">       [array addObject:tuple];</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> array;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态添加方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">CaculatorMaker *make = [[CaculatorMaker alloc] init];</span><br><span class="line"><span class="comment">/*!</span><br><span class="line"> *  runtime添加方法</span><br><span class="line"> *</span><br><span class="line"> *  @param class     被添加方法的类</span><br><span class="line"> *  @param addMethod: 方法的名称</span><br><span class="line"> *  @param imp:  实现这个方法的函数</span><br><span class="line"> *  @param type: 定义函数返回值类型和参数类型的字符串[Type Encodings](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html)</span><br><span class="line"> *  @return 添加成功或者失败</span><br><span class="line"> */</span></span><br><span class="line">class_addMethod([make class], <span class="keyword">@selector</span>(addMethod:), (IMP)addMethod, <span class="string">"i@:@"</span>);</span><br><span class="line">[make performSelector:<span class="keyword">@selector</span>(addMethod:) withObject:<span class="string">@"new Method"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//添加的方法的具体实现</span></span><br><span class="line"><span class="keyword">int</span> addMethod(<span class="keyword">id</span> <span class="keyword">self</span>, SEL _cmd, <span class="built_in">NSString</span> *str)</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"new method is %@"</span>,str);</span><br><span class="line"><span class="keyword">return</span> <span class="number">100</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态添加属性和成员变量均未成功，属性添加完成之后的setter方法和getter方法不会实现。</p>
+</li>
+</ul>
+</li>
+<li><p>消息转发(message forwarding)-当一个对象无法接收某一消息时，就会启动消息转发机制。<br>通过这一机制，我们可以告诉对象如何处理未知的消息。默认情况下，对象接收到未知的消息，会导致程序崩溃。</p>
+<ul>
+<li>消息转发的步骤:1.动态方法解析 2.备用接收者 3. 完整转发</li>
+<li><p>动态方法解析:当对象接收到未实现的方法时，为自动调用resolveInstanceMethod:和resolveClassMethod:</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//当对象接收到未知方法时，动态添加以下方法。作为默认执行，防止程序崩溃</span></span><br><span class="line"> <span class="keyword">void</span> functionForMethod1(<span class="keyword">id</span> <span class="keyword">self</span>, SEL _cmd)</span><br><span class="line"> &#123;</span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@"当未实现某个方法时默认执行此函数"</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> + (<span class="built_in">BOOL</span>)resolveInstanceMethod:(SEL)sel</span><br><span class="line"> &#123;</span><br><span class="line">   class_addMethod(<span class="keyword">self</span><span class="variable">.class</span>, <span class="keyword">@selector</span>(method1), (IMP)functionForMethod1, <span class="string">"@:"</span>);</span><br><span class="line">   <span class="keyword">return</span> [<span class="keyword">super</span> resolveInstanceMethod:sel];</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> + (<span class="built_in">BOOL</span>)resolveClassMethod:(SEL)sel</span><br><span class="line"> &#123;</span><br><span class="line">   class_addMethod(<span class="keyword">self</span><span class="variable">.class</span>, <span class="keyword">@selector</span>(method1), (IMP)functionForMethod1, <span class="string">"@:"</span>);</span><br><span class="line">   <span class="keyword">return</span> [<span class="keyword">super</span> resolveClassMethod:sel];</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>备用接收者:如果没有用动态方法解析处理消息，则Runtime会继续调以下方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如果对象实现了这个方法，并返回一个非nil的值，则这个对象会作为消息的接收者。且消息会被分发到这个对象</span></span><br><span class="line">- (<span class="keyword">id</span>)forwardingTargetForSelector:(SEL)aSelector &#123;</span><br><span class="line"> <span class="keyword">id</span>  standByObj;</span><br><span class="line"> <span class="comment">//....standByObj 备用接收对象的初始化等操作</span></span><br><span class="line"> <span class="keyword">return</span> standByObj;</span><br><span class="line"><span class="keyword">return</span> [<span class="keyword">super</span> forwardingTargetForSelector:aSelector];</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>完整转发:如果在上一步还不能处理未知消息，则唯一能做的就是启用完整的消息转发机制了</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span>!</span><br><span class="line"> <span class="keyword">*</span>  消息转发机制使用从这个方法中获取的信息来创建NSInvocation对象。因此我们必须重写这个方法，为给定的selector提供一个合适的方法签名</span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span>  <span class="comment">@param aSelector 需要转发的方法</span></span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span>  <span class="comment">@return 新的方法签名</span></span><br><span class="line"> <span class="keyword">*</span>/</span><br><span class="line"></span><br><span class="line"> - (NSMethodSignature <span class="keyword">*</span>)methodSignatureForSelector:(SEL)aSelector</span><br><span class="line"> &#123;</span><br><span class="line">    NSMethodSignature <span class="keyword">*</span>signature = [super methodSignatureForSelector:aSelector];</span><br><span class="line"></span><br><span class="line">      if (!signature) &#123;</span><br><span class="line">      if ([SUTRuntimeMethodHelper instancesRespondToSelector:aSelector]) &#123;</span><br><span class="line"></span><br><span class="line">          signature = [SUTRuntimeMethodHelper instanceMethodSignatureForSelector:aSelector];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return signature;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /<span class="keyword">*</span>!</span><br><span class="line">  <span class="keyword">*</span>  将消息转发给其它对象</span><br><span class="line">  <span class="keyword">*</span></span><br><span class="line">  <span class="keyword">*</span>  <span class="comment">@param anInvocation 需要转发的消息的selector，目标(target)和参数</span></span><br><span class="line">  <span class="keyword">*</span>/</span><br><span class="line">  - (void)forwardInvocation:(NSInvocation <span class="keyword">*</span>)anInvocation</span><br><span class="line">  &#123;   </span><br><span class="line">    if ([SUTRuntimeMethodHelper instancesRespondToSelector:anInvocation.selector]) &#123;</span><br><span class="line"></span><br><span class="line">      [anInvocation invokeWithTarget:_helper];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>方法交换(Method Swizzling)</p>
+<ul>
+<li>给view controller的viewWillAppear：中添加跟踪代码，将viewWillAppear：与自定义的dg_viewWillAppear:交换，代码如下：<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">"UIViewController+Tracking.h"</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIViewController</span> (<span class="title">Tracking</span>)</span></span><br><span class="line"><span class="comment">/*!</span><br><span class="line">*  在load中实现方法交换，</span><br><span class="line">*/</span></span><br><span class="line">+ (<span class="keyword">void</span>)load</span><br><span class="line">&#123;</span><br><span class="line">   <span class="comment">//</span></span><br><span class="line">   <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</span><br><span class="line">   <span class="built_in">dispatch_once</span>(&amp;onceToken,^&#123;</span><br><span class="line">       Class class = [<span class="keyword">self</span> class];</span><br><span class="line">       SEL originalSelector = <span class="keyword">@selector</span>(viewWillAppear:);</span><br><span class="line">       SEL swizzledSelector = <span class="keyword">@selector</span>(dg_viewWillAppear:);</span><br><span class="line">       Method originalMethod = class_getInstanceMethod(class, originalSelector);</span><br><span class="line">       Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);</span><br><span class="line">       <span class="comment">//本类是否已添加swizzledMethod,未添加则进行添加</span></span><br><span class="line">       <span class="built_in">BOOL</span> didAddMethod = class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (didAddMethod) &#123;</span><br><span class="line">           class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));</span><br><span class="line">           &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">             method_exchangeImplementations(originalMethod, swizzledMethod);</span><br><span class="line">           &#125;</span><br><span class="line">           &#125;);</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line"> - (<span class="keyword">void</span>)dg_viewWillAppear:(<span class="built_in">BOOL</span>)animated</span><br><span class="line"> &#123;</span><br><span class="line">   [<span class="keyword">self</span> dg_viewWillAppear:animated];</span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@"viewWilleAppear"</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="参考">参考</h2><ol>
+<li><a href="http://southpeak.github.io/blog/2014/11/09/objective-c-runtime-yun-xing-shi-zhi-liu-:shi-yi/" target="_blank" rel="external">Objective-C Runtime 运行时</a></li>
+<li><a href="http://www.jianshu.com/p/e071206103a4" target="_blank" rel="external">让你快速上手Runtime</a></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Runtime/">Runtime</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发底层/">iOS开发底层</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发进阶/">iOS开发进阶</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态编程语言/">动态编程语言</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-iOS中GCD的使用小结" class="article article-type-post" itemscope itemprop="blogPost">
   
