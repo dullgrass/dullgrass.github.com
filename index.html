@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Grand-Center-Dispatch/" style="font-size: 10px;">Grand Center Dispatch</a> <a href="/tags/KVC/" style="font-size: 10px;">KVC</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/NSNotificationCenter/" style="font-size: 10px;">NSNotificationCenter</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Self-Sizing-Cells/" style="font-size: 10px;">Self Sizing Cells</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中block的使用/" style="font-size: 10px;">iOS中block的使用</a> <a href="/tags/iOS开发底层/" style="font-size: 10px;">iOS开发底层</a> <a href="/tags/iOS开发进阶/" style="font-size: 10px;">iOS开发进阶</a> <a href="/tags/动态编程语言/" style="font-size: 10px;">动态编程语言</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/观察者模式/" style="font-size: 10px;">观察者模式</a>
+						<a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Grand-Center-Dispatch/" style="font-size: 10px;">Grand Center Dispatch</a> <a href="/tags/KVC/" style="font-size: 10px;">KVC</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/NSNotificationCenter/" style="font-size: 10px;">NSNotificationCenter</a> <a href="/tags/Runtime/" style="font-size: 20px;">Runtime</a> <a href="/tags/Self-Sizing-Cells/" style="font-size: 10px;">Self Sizing Cells</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS中block的使用/" style="font-size: 10px;">iOS中block的使用</a> <a href="/tags/iOS开发底层/" style="font-size: 20px;">iOS开发底层</a> <a href="/tags/iOS开发进阶/" style="font-size: 20px;">iOS开发进阶</a> <a href="/tags/动态编程语言/" style="font-size: 10px;">动态编程语言</a> <a href="/tags/单元测试/" style="font-size: 10px;">单元测试</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/观察者模式/" style="font-size: 10px;">观察者模式</a>
 					</div>
 				</section>
 				
@@ -186,6 +186,139 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-staticLibrary" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/25/staticLibrary/" class="article-date">
+  	<time datetime="2016-03-25T09:22:10.000Z" itemprop="datePublished">2016-03-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/25/staticLibrary/">IOS中静态库的使用</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="iOS中库的相关概念">iOS中库的相关概念</h3><ol>
+<li>库: 就是一段编译好的二进制代码，加上头文件就可以供别人使用了</li>
+<li><p>库的分类:开源库和闭源库的形式</p>
+<ul>
+<li>开源库如：AFNetworking, 源码一般放在某个版本控制库中<ul>
+<li>很多人直接下载开源代码，将相关文件copy到自己的工程，直接使用，缺点是当开源库的版本更新后，还要在手动copy一次，比较麻烦</li>
+<li>使用git的submodule，</li>
+<li>现在比较常用的是cocoapods，用命令导入开源库，而且不用关心开源库的相关依赖。cocoapods的本质是将公用库编译成静态库，然后使得主工程依赖此静态库</li>
+</ul>
+</li>
+<li>闭源库<ul>
+<li>用途: 某些代码需要给别人使用，但是又不希望给被人看到源码，就需要以库的形式进行封装，只暴露出头文件</li>
+<li>对某些不会进行大的改动的代码，我们想要减少编译的时间，就可以打包成库，因为库是已经编译好的二进制文件了，编译的时候Link一下就可以了，不会浪费编译时间。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>根据使用库Link的方式，闭源库可以分为静态库和动态库</p>
+<ul>
+<li>静态库:(.a或者.framework )在编译的时候会被直接copy一份，复制到目标程序里，在编译完成之后，库文件实际就没有多大作用了，目标程序没有外部依赖，可以直接运行，缺点是<span style="color:red">（目标程序的体积会增大）</span></li>
+<li>.a格式的静态库，一般使用的时候需要提供.h .a .bundle文件，由于创建静态库项目的时候编译出来的静态库只支持特定的一种硬件架构体系，所以如果需要生成通用静态库，需要用到<a href="http://pinka.cn/2013/08/ios常用静态库操作命令/" target="_blank" rel="external">lipo</a>命令将多个静态库合并。</li>
+<li>.framework格式的静态库，framework最终只是一个bundle（一个文件夹，里面按照规定的目录结构方式文件），但是对XCode而言这样的target还是有真假（Real／Fake）之分，只有真的情况下XCode主工程在添加依赖的时候才能够选择此公用库项目的framework涨的target</li>
+<li>动态库:在编译时不会被copy盗目标程序，目标程序只会存储指向动态库的引用，等到程序运行时，动态库才会被真正加载进来。不会影响目标程序的体积，但是会带来一部分性能损失。<span style="color:red">苹果不允许自制动态库上架到appstore</span></li>
+</ul>
+</li>
+</ol>
+<h3 id="iOS中-a静态库的制作">iOS中.a静态库的制作</h3><ol>
+<li>新建XCode中的lib工程如下图所示:<br><img src="http://7pn65g.com1.z0.glb.clouddn.com/buildLib.gif" alt="buildLib"></li>
+<li><p>将静态库作为子项目引用到其他工程<br><img src="http://7pn65g.com1.z0.glb.clouddn.com/UseLib.gif" alt="UseLib"></p>
+<p><span style="color:red">注：</span>引用静态库的工程的Target Dependencies和Link Binary With Libraries均需要添加.a静态库</p><br><p style="text-indent:2em">引用静态库的工程，需要在Header Search Paths中添加静态库项目的头文件的路径<span style="color:red">(“..”表示返回上层目录)</span></p><br><p style="text-indent:2em">制作的静态库中如果添加了分类，引用静态库的工程需要在Other linker Flags中添加-ObjC</p></li>
+<li>编译静态库<ul>
+<li>编译静态库项目中的所有文件:<br><img src="http://7pn65g.com1.z0.glb.clouddn.com/compileLib.gif" alt="compileLib"></li>
+<li>编译静态库项目中的部分文件:<br><img src="http://7pn65g.com1.z0.glb.clouddn.com/compileLibPart.gif" alt="compilePartLib"><p><span style="color:red">注：</span>当只需要打包部分文件时，只需要在打包静态库的工程里面不需要打包的.m文件的Taget MemberShip中的勾选去掉，则该文件将不会被打包到静态库中去</p><br><p style="text-indent:2em">查看自己打包的静态库都包含了哪些文件可以用lipo命令</p></li>
+</ul>
+</li>
+<li><p>lipo 命令的用法</p>
+<ul>
+<li><p>查看静态库中包含哪些架构</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lipo -info lib.a</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并模拟器库文件和真机库文件</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lipo -create -output <span class="class"><span class="keyword">lib</span>.<span class="title">a</span> <span class="title">lib</span>-<span class="title">armv6</span>.<span class="title">a</span> <span class="title">lib</span>-<span class="title">i386</span>.<span class="title">a</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压出指定架构的静态库</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lipo -extract_family armv7 -output <span class="class"><span class="keyword">lib</span>-<span class="title">armv7</span>.<span class="title">a</span> <span class="title">lib</span>.<span class="title">a</span></span></span><br><span class="line">或者</span><br><span class="line">lipo <span class="class"><span class="keyword">lib</span>.<span class="title">a</span> -<span class="title">thin</span> <span class="title">armv7</span> -<span class="title">output</span> <span class="title">lib</span>-<span class="title">armv7</span>.<span class="title">a</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将a格式的静态库解压为o文件,可以解压出所有的.o文件</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ar -x <span class="class"><span class="keyword">lib</span>.<span class="title">a</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将o文件合并为a文件</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libtool -static -o <span class="class"><span class="keyword">lib</span>.<span class="title">a</span> *.<span class="title">o</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="静态库中的注意事项">静态库中的注意事项</h3><ol>
+<li>静态库所依赖的dylib或者framework，最终使用静态库的程序也需要引用</li>
+<li>静态库是二进制代码，区分处理器类型的，可以使用lipo -create –output创建支持多处理器的静态库</li>
+<li>静态库中使用的开源代码与引用静态库的工程使用的开源代码相同时，将会出现冲突.<ul>
+<li>解决1: 静态库不打包相关的开源代码，在静态库使用说明文档中列出所依赖的开源库及其版本</li>
+<li>解决2: 静态库在打包开源代码时，修改开源代码的类的命名加上三个字母以上的前缀(不建议)</li>
+<li>对于已经打包好的静态库，可以利用lipo命令解包其中一个静态库，然后把发生冲突的.o文件删除，然后lipo命令重新打包，然后对每种处理器框架的.a文件重复操作，最后lipo重新合并静态库，替换原来的静态库</li>
+</ul>
+</li>
+<li>a.静态库中的类的命名与引用静态库的工程的类的命名相同时将会被视为重复定义<span style="color:red">（OC没有命名空间导致)</span><ul>
+<li>解决:静态库中的类命名加上三个字母以上的前缀</li>
+</ul>
+</li>
+<li>静态库中使用Category,用Category添加的方法即使名字重复 了也不会报错，但是会存在其中一个方法覆盖了另一个<ul>
+<li>解决: 建议给category添加的方法添加前缀</li>
+</ul>
+</li>
+<li>全局变量重名是必然编译失败的<ul>
+<li>解决:给静态库中用到的全局变量加前缀</li>
+</ul>
+</li>
+<li>静态库中有可能会使用debug时打开log,release关闭log,发布到Appstore的应用不应该把调试的log打印出来，因此，在打包静态库时，把Build Configuration选择为Release一般可以把多数开源库的log都去掉了,如果静态库使用者希望能在开发时看到log，这时就看不到了<ul>
+<li>解决:分开打debug和release的包</li>
+</ul>
+</li>
+</ol>
+<h3 id="引用">引用</h3><p> <a href="http://pinka.cn/2013/08/ios常用静态库操作命令/" target="_blank" rel="external">iOS常用静态库操作命令</a></p>
+<p> <a href="http://pinka.cn/2014/04/ios静态库的那些坑/" target="_blank" rel="external">iOS静态库的那些坑</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-runtime" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -203,7 +336,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/17/runtime/">iOS中runtime</a>
+      <a class="article-title" href="/2015/12/17/runtime/">iOS中的runtime</a>
     </h1>
   
 
@@ -1138,13 +1271,79 @@
 
 
   
+    <article id="post-iOS中的单元测试" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/02/02/iOS中的单元测试/" class="article-date">
+  	<time datetime="2015-02-01T16:00:00.000Z" itemprop="datePublished">2015-02-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/02/iOS中的单元测试/">iOS中单元测试</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="本博客主要分以下几个方面来介绍iOS中的单元测试">本博客主要分以下几个方面来介绍iOS中的单元测试</h2><ul>
+<li>单元测试的用途</li>
+<li>单元测试的使用方法</li>
+</ul>
+<h2 id="单元测试的用途">单元测试的用途</h2><ol>
+<li>测试某些功能是否正常</li>
+<li>调试接口是否能正常使用</li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Runtime/">Runtime</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发底层/">iOS开发底层</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发进阶/">iOS开发进阶</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/单元测试/">单元测试</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
   
 </div>
       <footer id="footer">
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2015 Dullgrass
+    		&copy; 2016 Dullgrass
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
